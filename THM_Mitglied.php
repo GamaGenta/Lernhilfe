@@ -9,7 +9,6 @@ class THM_Mitglied
     var $matrikelnummer;
     var $mitarbeiternummer;
 
-
     public function __construct($ID, $vorname, $name, $rolle, $matrikelnummer, $mitarbeiternummer)
     {
         $this->ID = $ID;
