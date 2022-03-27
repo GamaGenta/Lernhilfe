@@ -3,21 +3,21 @@
 class THM_Mitglied
 {
     var $ID;
-    var $Vorname;
-    var $Name;
-    var $Rolle;
-    var $Matrikelnummer;
-    var $Mitarbeiternummer;
+    var $vorname;
+    var $name;
+    var $rolle;
+    var $matrikelnummer;
+    var $mitarbeiternummer;
 
 
-    public function __construct($ID, $Vorname, $Name, $Rolle, $Matrikelnummer, $Mitarbeiternummer)
+    public function __construct($ID, $vorname, $name, $rolle, $matrikelnummer, $mitarbeiternummer)
     {
         $this->ID = $ID;
-        $this->Vorname = $Vorname;
-        $this->Name = $Name;
-        $this->Rolle = $Rolle;
-        $this->Matrikelnummer = $Matrikelnummer;
-        $this->Mitarbeiternummer = $Mitarbeiternummer;
+        $this->vorname = $vorname;
+        $this->name = $name;
+        $this->rolle = $rolle;
+        $this->matrikelnummer = $matrikelnummer;
+        $this->mitarbeiternummer = $mitarbeiternummer;
     }
 
 
