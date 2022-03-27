@@ -10,7 +10,7 @@ class Arbeit
     {
         $this->titel = $titel;
         $this->startzeitpunkt = $startzeitpunkt;
-        $thie->endzeitpunkt = $endzeitpunkt;
+        $this->endzeitpunkt = $endzeitpunkt;
     }
         
     public function getTitel() {
@@ -26,9 +26,7 @@ class Arbeit
     }
 
     public function setStartzeitpunkt($startzeitpunkt) {
-        if (checkdate($startzeitpunkt['month'], $startzeitpunkt['day'], $startzeitpunkt['year'])) {
             $this->startzeitpunkt = $startzeitpunkt;
-        }
     }
 
     public function getEndzeitpunkt() {
@@ -36,11 +34,7 @@ class Arbeit
     }
 
     public function setEndzeitpunkt($endzeitpunkt) {
-        if (checkdate($endzeitpunkt['month'], $endzeitpunkt['day'], $endzeitpunkt['year'])) {
-            if($endzeitpunkt > $this->startzeitpunkt) {
                 $this->endzeitpunkt = $endzeitpunkt;
-            }
-        }
     }
 
 
