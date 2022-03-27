@@ -2,10 +2,10 @@
 
 class THM_Mitglied
 {
-    private var $ID;
-    private var $vorname;
-    private var $name;
-    private var $rolle;
+    private $ID;
+    private $vorname;
+    private $name;
+    private $rolle;
 
     public function __construct($ID, $vorname, $name, $rolle)
     {
