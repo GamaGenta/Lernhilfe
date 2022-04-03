@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Log In</h1>
-<form action="xy.php" method="post">
+<form method="post">
     <div class="container">
         <!--
         https://www.w3schools.com/howto/howto_css_login_form.asp
@@ -15,8 +15,8 @@
         -->
         <label for="userEmail"></label>
         <input type="text" placeholder="E-Mail" name="userEmail" required>
-        <label for="psw"></label>
-        <input type="password" placeholder="Password" name="psw" required>
+        <label for="userPassword"></label>
+        <input type="password" placeholder="Password" name="userPassword" required>
         <label>
             <input type="checkbox" checked="checked" name="remember">Passwort merken</label>
         </label>
@@ -28,6 +28,25 @@
     </br>
     <a href="">Über uns</a>
 </div>
+<?php
+$userEmail = $_POST['userEmail'];
+$userPassword = $_POST['psw'];
+
+// Database connection
+$conn = new mysqli('localhost','root','','test');
+if($conn->connect_error){
+    echo "$conn->connect_error";
+    die("Connection Failed : ". $conn->connect_error);
+} else {
+    $stmt = $conn->prepare("insert into registration(firstName, lastName, gender, email, password, number) values(?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssi", $firstName, $lastName, $gender, $email, $password, $number);
+    $execval = $stmt->execute();
+    echo $execval;
+    echo "Registration successfully...";
+    $stmt->close();
+    $conn->close();
+}
+?>
 </body>
 <footer>
     &copy; Lernhilfe Team
