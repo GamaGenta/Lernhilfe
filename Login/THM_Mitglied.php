@@ -2,19 +2,19 @@
 
 class THM_Mitglied
 {
-private $ID;
+private $uid;
 private $rolle;
 
-    public function __construct($ID, $rolle)
+    public function __construct($uid, $rolle)
     {
-        $this->ID = $ID;
+        $this->uid = $uid;
         $this->rolle = $rolle;
 
     }
 
-    public function getID()
+    public function getUid()
     {
-        return $this->ID;
+        return $this->uid;
     }
     
     public function getRolle()
