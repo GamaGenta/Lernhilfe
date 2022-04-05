@@ -15,10 +15,23 @@
 </header>
 <body>
 <hr>
-<div class="eintragToDo"></div>
-<input type="checkbox" id="checkboxOfToDo1" class="checkboxOfToDo">
-<label for="checkboxOfToDo1">Text von dem ToDo</label>
-<a href=""><i class="rightArrow"</i>></a>
+<div class="eintragToDo">
+    <input type="checkbox" id="checkboxOfToDo1" class="checkboxOfToDo">
+    <label for="checkboxOfToDo1">Text von dem ToDo</label>
+    <a href="" class="rightArrow">></a>
+</div>
+<hr>
+<div class="eintragToDo">
+    <input type="checkbox" id="checkboxOfToDo1" class="checkboxOfToDo">
+    <label for="checkboxOfToDo1">Beispiel 2</label>
+    <a href="" class="rightArrow">></a>
+</div>
+<hr>
+<div class="eintragToDo">
+    <input type="checkbox" id="checkboxOfToDo1" class="checkboxOfToDo">
+    <label for="checkboxOfToDo1">Beispiel 3 undso weiter</label>
+    <a href="" class="rightArrow">></a>
+</div>
 </body>
 <footer>
     &copy; Lernhilfe Team
