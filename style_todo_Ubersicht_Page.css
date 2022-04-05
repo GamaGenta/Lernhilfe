@@ -19,10 +19,6 @@ header {
     justify-content: space-between;
 }
 
-body {
-
-}
-
 label {
     pointer-events:none;
 }
@@ -45,7 +41,7 @@ label {
 }
 
 .rightArrow {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .plusButton {
@@ -54,6 +50,20 @@ label {
 
 a {
     text-decoration: none;
+}
+
+.eintragToDo {
+    display: flex;
+    width: 90%;
+    margin: 1.5em auto;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.eintragToDo .rightArrow {
+    float: right;
 }
 
 input[type=checkbox] {
