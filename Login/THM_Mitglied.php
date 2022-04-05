@@ -22,6 +22,10 @@ private $rolle;
         return $this->rolle;
     }
 
+    public function __destruct()
+    {
+        echo "Destroying: ".$this->uid;
+    }
 
 }
 
