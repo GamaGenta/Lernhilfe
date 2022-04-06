@@ -24,7 +24,8 @@ private $rolle;
 
     public function __destruct()
     {
-        echo "Destroying: ".$this->uid;
+        // Test: wann und ob das Objekt zerstört wird
+        // echo "Destroying: ".$this->uid;
     }
 
 }
