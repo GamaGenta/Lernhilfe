@@ -1,5 +1,5 @@
 <?php
-
+include_once 'dbconn.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
@@ -14,7 +14,7 @@
     <a href=""><i class="plusButton">+</i></a>
 </header>
 <body>
-<hr>
+<!--
 <div class="eintragToDo">
     <input type="checkbox" id="checkboxOfToDo1" class="checkboxOfToDo">
     <label for="checkboxOfToDo1">Text von dem ToDo</label>
@@ -32,8 +32,29 @@
     <label for="checkboxOfToDo1">Beispiel 3 undso weiter</label>
     <a href="" class="rightArrow">></a>
 </div>
+<hr>
+-->
+<?php
+$sql = "SELECT idtodo, titel, inhalt FROM todoeintrag;";
+$result = mysqli_query($conn, $sql);
+$resultCheck = mysqli_num_rows($result);
+echo "<br>";
+if ($resultCheck > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<hr>";
+        echo "<div class='eintragToDo'>";
+        //hier die idToDo aus der Datenbank holen
+        echo '<input type="checkbox" id="checkboxOfToDo5" class="checkboxOfToDo">';
+        echo '<label for="checkboxOfToDo5">';
+        echo $row['titel'] . "<br>";
+        echo "</label>";
+        echo '<a href="" class="rightArrow">></a>';
+        echo "</div>";
+    }
+}
+?>
+<button type="submit" style="float: right">löschen</button>
 </body>
 <footer>
-    &copy; Lernhilfe Team
 </footer>
 </html>
