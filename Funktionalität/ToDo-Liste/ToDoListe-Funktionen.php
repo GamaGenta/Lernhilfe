@@ -1,12 +1,13 @@
 <?php
 require_once("ToDo.php");
 
-function todoListeAnzeigen() {
-    $liste = todoListeErstellen();
+$todoListe = todoListeErstellen();
+
+
+function todoListeAnzeigen($todoListe) {
 
     //Liste mit HTML komponenten anzeigen
 }
-
 
 
 function todoListeErstellen() {
@@ -15,6 +16,7 @@ function todoListeErstellen() {
 
     //DB abfrage:
     //DB giebt 2D assoziatives Array (Map) zurück
+    //Beispiel Array, welches aus einer Datenbankabrage herforgeht:
     $bspToDoDB_Daten = array(
         array("tID"=> 1,"titel"=>"Staubsaugen", "deadline"=>null, "zeitspanne"=>array("h"=>0,"min"=>30), "info"=>"die Treppen sollen auch gesaugt werden"),
         array("tID"=> 2, "titel"=>"Mathe lernen", "deadline"=>(time() + (7 * 24 * 60 * 60)), "zeitspanne"=>null, "info"=>"Kurvendiskusion: Ableitungen und Integrale")
