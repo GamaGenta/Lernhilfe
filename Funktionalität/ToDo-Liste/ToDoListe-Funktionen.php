@@ -3,10 +3,35 @@ require_once("ToDo.php");
 
 $todoListe = todoListeErstellen();
 
+if(isset($_POST["delete"])) {
+    todoLöschen($todoListe, $_POST["delete"]);
+
+    //Seiteninhalt (neu) Laden
+    //header("Refresh:0");
+    todoListeAnzeigen($todoListe);
+} else if(isset($_GET["add"])) {
+    //Formular zum Anlegen eines ToDo laden
+    addToDoFormAnzeigen();
+    if(isset($_POST["titel"])) {
+        todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
+    } else {
+        //Fehlermeldung anzeigen
+
+    }
+} else {
+    todoListeAnzeigen($todoListe);
+}
+
+
 
 function todoListeAnzeigen($todoListe) {
-
     //Liste mit HTML komponenten anzeigen
+
+}
+
+function addToDoFormAnzeigen( /* $titel = null, $deadline = null, $zeitspanne = null, $info = null */ ) {
+    //(POST) Formular mit HTML komponenten anzeigen
+
 }
 
 
@@ -34,7 +59,7 @@ function todoListeErstellen() {
     return $todoListe;
 }
 
-function todoAnlegen($title, $deadline, $zeitspanne, $info) {
+function todoAnlegen($title, $deadline = null, $zeitspanne = null, $info = null) {
     //Datenbankaufruf mit den Variablen füllen (aus Post Formular)
 
 }
@@ -44,4 +69,5 @@ function todoLöschen($todoListe, $todoNr){
     //Datenbank aufruf: $todoListe[$todoNr] wird aus der DB gelöscht (über die ID: $todoListe[$todotNr]->getTID )
 
 }
+
 ?>
