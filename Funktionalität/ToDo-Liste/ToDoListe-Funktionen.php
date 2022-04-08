@@ -6,16 +6,16 @@ $todoListe = todoListeErstellen();
 
 //GUI Funktionen:
 if(isset($_POST["delete"])) {
-    todoLöschen($todoListe[$_POST["delete"]]);
+    todoLöschen($todoListe[$_POST["delete"]]->getTID());
 
-    //Seiteninhalt (neu) Laden
-    //header("Refresh:0");
+    //Seiteninhalt (neu) Laden, z.B. mit verlinkung: <a href="?ToDo">  </a> (oder wird automatisch getätigt)
     todoListeAnzeigen($todoListe);
-} else if(isset($_GET["add"])) {
+} else if(isset($_POST["add"])) {
     //Formular zum Anlegen eines ToDo laden
     addToDoFormAnzeigen();
     if(isset($_POST["titel"])) {
         todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
+        //Seiteninhalt (neu) Laden, z.B. mit unset($_POST["add"])
     } else {
         //Fehlermeldung anzeigen
 
@@ -27,18 +27,20 @@ if(isset($_POST["delete"])) {
 
 function todoListeAnzeigen($todoListe) {
     //Liste mit HTML Komponenten anzeigen
-
+    //(PHP Datei: PHP in HTML eingebettet)
 }
 
 function addToDoFormAnzeigen( /* falls Feature ein ToDo bearbeiten implementiert werden soll: $titel = null, $deadline = null, $zeitspanne = null, $info = null */ ) {
     //(POST) Formular mit HTML komponenten anzeigen
-
+    // <form method="post"> </form>
 }
 
 function showToDoInhalt($todo) {
 
     //ToDo Parameter (titel, deadline, zeitspanne, info) anzeigen in Form von HTML Komponenten
+    //muss Link zur ToDo loste beinhalten (<a href="?ToDo"> </a>)
 }
+
 
 
 //ToDo Funktionalität Funktionen:
@@ -60,7 +62,7 @@ function todoListeErstellen() {
     );
 
     foreach($bspToDoDB_Daten as $bspDatensatz){
-        $todoListe[] = new ToDo($bspDatensatz->getTID(), $bspDatensatz->getTitel(), $bspDatensatz->getDeadline(), $bspDatensatz->getZeitspanne(), $bspDatensatz->getInfo());
+        $todoListe[] = new ToDo($bspDatensatz["tID"], $bspDatensatz["titel"], $bspDatensatz["deadline"], $bspDatensatz["zeitspanne"], $bspDatensatz["info"]);
     }
 
     return $todoListe;
@@ -71,8 +73,8 @@ function todoAnlegen($title, $deadline = null, $zeitspanne = null, $info = null)
 
 }
 
-function todoLöschen($todo){
-    //Datenbank aufruf: $todo wird aus der DB gelöscht (über die ID: $todo->getTID )
+function todoLöschen($tID){
+    //Datenbank aufruf: $todo wird aus der DB gelöscht (über die ID: tID )
 
 }
 
