@@ -3,8 +3,10 @@ require_once("ToDo.php");
 
 $todoListe = todoListeErstellen();
 
+
+//GUI Funktionen:
 if(isset($_POST["delete"])) {
-    todoLöschen($todoListe, $_POST["delete"]);
+    todoLöschen($todoListe[$_POST["delete"]]);
 
     //Seiteninhalt (neu) Laden
     //header("Refresh:0");
@@ -23,23 +25,28 @@ if(isset($_POST["delete"])) {
 }
 
 
-
 function todoListeAnzeigen($todoListe) {
-    //Liste mit HTML komponenten anzeigen
+    //Liste mit HTML Komponenten anzeigen
 
 }
 
-function addToDoFormAnzeigen( /* $titel = null, $deadline = null, $zeitspanne = null, $info = null */ ) {
+function addToDoFormAnzeigen( /* falls Feature ein ToDo bearbeiten implementiert werden soll: $titel = null, $deadline = null, $zeitspanne = null, $info = null */ ) {
     //(POST) Formular mit HTML komponenten anzeigen
 
 }
 
+function showToDoInhalt($todo) {
 
+    //ToDo Parameter (titel, deadline, zeitspanne, info) anzeigen in Form von HTML Komponenten
+}
+
+
+//ToDo Funktionalität Funktionen:
 function todoListeErstellen() {
     //Array mit ToDo objekten füllen (schrittweise mit einer Schleife)
     //ToDo's werden mit ToDo Nutzer Daten aus der DB grfüllt (mit einer Schleife
 
-    //DB abfrage:
+    //DB abfrage: mit über die NutzerID (uid) über Session["user"]->getUID;
     //DB giebt 2D assoziatives Array (Map) zurück
     //Beispiel Array, welches aus einer Datenbankabrage herforgeht:
     $bspToDoDB_Daten = array(
@@ -64,9 +71,8 @@ function todoAnlegen($title, $deadline = null, $zeitspanne = null, $info = null)
 
 }
 
-function todoLöschen($todoListe, $todoNr){
-    //$todoNr ist er Index des gewählten ToDo's aus dem Array $todoListe
-    //Datenbank aufruf: $todoListe[$todoNr] wird aus der DB gelöscht (über die ID: $todoListe[$todotNr]->getTID )
+function todoLöschen($todo){
+    //Datenbank aufruf: $todo wird aus der DB gelöscht (über die ID: $todo->getTID )
 
 }
 
