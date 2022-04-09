@@ -3,6 +3,7 @@
 
 class Karteikarte
 {
+    private $kID;
     private $titel;
     private static $titelLength = 20;
     private $frage;
@@ -13,8 +14,9 @@ class Karteikarte
     private $bild;
 
 
-    public function __construct($titel, $frage, $antwort, $antwortArt , $bild)
+    public function __construct($kID, $titel, $frage, $antwort, $antwortArt = "text", $bild = null)
     {
+        $this->kID = $kID;
         $this->titel = $titel;
         $this->frage = $frage;
         $this->antwort = $antwort;
@@ -26,40 +28,20 @@ class Karteikarte
         return $this->titel;
     }
 
-    public function setTitel($titel){
-        $this->titel = $titel;
-    }
-
     public function getFrage(){
         return $this->frage;
-    }
-
-    public function setFrage($frage){
-        $this->frage = $frage;
     }
 
     public function getAntwortArt(){
         return $this->antwortArt;
     }
 
-    public function setAntwortArt($art){
-        $this->antwortArt = $art;
-    }
-
     public function getAntwort(){
         return $this->antwort;
     }
 
-    public function setAntwort($antwort){
-        $this->antwort = $antwort;
-    }
-
     public function getBild(){
         return $this->bild;
-    }
-
-    public function setBild($bild){
-        $this->bild = $bild;
     }
 
     public static function getTitelLength(){

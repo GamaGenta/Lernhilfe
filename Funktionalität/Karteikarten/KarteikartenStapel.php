@@ -3,17 +3,23 @@
 
 class KarteikartenStapel
 {
+    private $sID;
     private $titel;
     private $modul;
-    private $karteikartenAnzahl;
+    private $karteikartenAnzahl; //wird eventuell nicht benötigt
 
-    public function __construct($titel, $modul, $karteikartenAnzahl = 0)
+    public function __construct($sID, $titel, $modul, $karteikartenAnzahl = 0)
     {
+        $this->sID = $sID;
         $this->titel = $titel;
         $this->modul = $modul;
         $this->karteikartenAnzahl = $karteikartenAnzahl;
     }
 
+
+    public function getSID(){
+        return $this->sID;
+    }
 
     public function getTitel()
     {

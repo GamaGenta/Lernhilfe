@@ -4,14 +4,14 @@ class StudentenKarte extends Karteikarte
 {
     private $antwortStatus;
     //die Konstanten werden als ersatz für die enumerationen verwendet (= weniger Speicheraufwand als einen String, als Zustand, zu speichern)
-    const nicht = 0;
+    const nicht = null;
     const richtig = 1;
-    const falsch = 3;
-    const vorherFalsch = 4;
+    const falsch = 2;
+    const vorherFalsch = 3;
 
-    public function __construct($titel, $frage, $antwort, $antwortArt = "Text", $bild = null, $antwortStatus = self::nicht)
+    public function __construct($kID, $titel, $frage, $antwort, $antwortArt = "Text", $antwortStatus = self::nicht, $bild = null)
     {
-        parent::__construct($titel, $frage, $antwort, $antwortArt, $bild);
+        parent::__construct($kID, $titel, $frage, $antwort, $antwortArt, $bild);
         $this->antwortStatus = $antwortStatus;
     }
 
