@@ -4,6 +4,7 @@ require_once("THM_Mitglied.php");
 
 session_start();
 
+
 if (isset($_POST["logout"])) {
     unset($_SESSION["user"]); //user aus der Session entnehmen
 }
