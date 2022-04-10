@@ -92,14 +92,16 @@ function kartenstapelErstellen() {
 }
 
 function stapelAnlegen($titel, $modul) {
-    //Datenbankaufruf mit den Variablen füllen (aus Post Formular)
+    //Datenbankaufruf: Datensatz mit den Variablen füllen (aus Post Formular)
 }
 
 function stapelLöschen($sID) {
-    //Datenbank aufruf: Karteikarten von Stapel werden gelöscht und Stapel wird aus der DB gelöscht (über die ID: $sID )
+    //Datenbank aufruf: Karten im Stapel erfragen und löschen
+    //Datenbank aufruf: Stapel wird aus der DB gelöscht (über die ID: $sID )
+
 }
 
-function stapelBearbeiten($stapel) {
+function stapelBearbeiten($titel, $modul) {
     //Datenbankaufruf: Daten des Stapels (titel und modul) aktualisieren
 }
 ?>
