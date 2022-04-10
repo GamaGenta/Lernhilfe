@@ -24,6 +24,10 @@ class Karteikarte
         $this->bild = $bild;
     }
 
+    public function getKID(){
+        return $this->kID;
+    }
+
     public function getTitel(){
         return $this->titel;
     }
@@ -45,7 +49,7 @@ class Karteikarte
     }
 
     public static function getTitelLength(){
-        return self::$titelLenth;
+        return self::$titelLength;
     }
 
     public static function getFrageLength(){
