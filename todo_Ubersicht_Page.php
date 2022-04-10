@@ -14,6 +14,8 @@ include_once 'dbconn.php';
     <a href=""><i class="plusButton">+</i></a>
 </header>
 <body>
+<form action='' method='POST'>
+
 <!--
 <div class="eintragToDo">
     <input type="checkbox" id="checkboxOfToDo1" class="checkboxOfToDo">
@@ -38,13 +40,15 @@ include_once 'dbconn.php';
 $sql = "SELECT idtodo, titel, inhalt FROM todoeintrag;";
 $result = mysqli_query($conn, $sql);
 $resultCheck = mysqli_num_rows($result);
-echo "<br>";
+
 if ($resultCheck > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<hr>";
         echo "<div class='eintragToDo'>";
         //hier die idToDo aus der Datenbank holen
-        echo '<input type="checkbox" id="checkboxOfToDo5" class="checkboxOfToDo">';
+        ?>
+        <input type="checkbox" name="ids[]" value="<?php echo $row['idtodo']; ?>" class="checkboxOfToDo">
+        <?php
         echo '<label for="checkboxOfToDo5">';
         echo $row['titel'] . "<br>";
         echo "</label>";
@@ -52,9 +56,27 @@ if ($resultCheck > 0) {
         echo "</div>";
     }
 }
+
+echo "<input type='submit' name='submit' value='Löschen' style='float: right'>";
+
+//ausgewählte ToDos aus Datenbank löschen und Seite aktualisieren
+//Code von https://www.php-resource.de/forum/php-developer-forum/74308-eintraege-mittels-checkbox-loeschen.html
+
+if ($_REQUEST['submit']) {
+    if (is_array($_REQUEST['ids'])) {
+        if (empty($_REQUEST['ids']) == false) {
+            foreach ($_REQUEST['ids'] as $val) {
+                $sqlDelete = "DELETE FROM todoeintrag WHERE idtodo IN ('$val');";
+                mysqli_query($conn, $sqlDelete);
+                header("Location: todo_Ubersicht_Page.php");
+            }
+        }
+    } else {
+        print "Es wurde nichts ausgewählt";
+    }
+}
 ?>
-<button type="submit" style="float: right">löschen</button>
-</body>
+</form>
 <footer>
 </footer>
 </html>
