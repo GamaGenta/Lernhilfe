@@ -39,10 +39,10 @@ if(isset($_POST["add"])) {
     }
 }  else {
     //Liste der Karten des Stapels der Stapel ID (sID)
-    kartenListeAnzeigen($kartenListe);
+    kartenListeAnzeigen($kartenListe, $stapelTitel);
 }
 
-function kartenListeAnzeigen($kartenList) {
+function kartenListeAnzeigen($kartenList, $staplTitel) {
     //Liste mit HTML Komponenten anzeigen
     //(PHP Datei: PHP in HTML eingebettet)
 }

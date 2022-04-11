@@ -57,7 +57,7 @@ function addStapelFormAnzeigen() {
     // <form method="post"> </form>
 }
 
-function StapelInhaltAnzeigen($sID, $titel) {
+function StapelInhaltAnzeigen($sID, $stapelTitel) {
     // Aufruf der Karteikarten (GUI) Funktionen (Karteikarten GUI ruft funktionale Kateikarten Funktionen auf)
     // (abrufen und Darstellung der Karteikarten das Stapels)
     require_once("Karteikarten_Funktionen.php" /* GUI der Karteikarten anzeigen */);
