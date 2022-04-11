@@ -9,13 +9,14 @@ include_once 'dbconn.php';
     <link rel="stylesheet" href="style_todo_Anlegen.css">
 </head>
 <header>
-    <a href=""><i class="leftArrow"><</i></a>
+    <a href="todo_Ubersicht_Page.php"><i class="leftArrow"><</i></a>
     <h1>Neues ToDo</h1>
-    <a href=""><i class="plusButton">+</i></a>
+    <a href="" id="plusButton"><i class="plusButton">+</i></a>
 </header>
 <body>
 <hr>
-<form method="post">
+<form method="POST">
+
     <label for="titel">Titel:</label>
     <input type="text" id="titel" name="titel">
     <hr>
@@ -29,8 +30,45 @@ include_once 'dbconn.php';
     <hr>
     <br>
     <label for="info">Info:</label>
-    <br>
     <input type="text" id="info" name="info">
+    <hr>
+    <br>
+    <input type='submit' id='submit' value='ToDo anlegen' style='float: left'>
+    <br><br><br>
+
+    <?php
+    error_reporting(0);
+    date_default_timezone_set("Europe/Berlin");
+    $timestamp = time();
+
+    if (isset($_REQUEST['submit']) == false) {
+        if ($_REQUEST ['titel'] == "" || $_REQUEST ['dauer'] == "" || $_REQUEST ['deadline'] == "" || $_REQUEST ['info'] == "") {
+
+            print "Bitte alle Felder ausfüllen";
+
+        } elseif (strtotime($_REQUEST['deadline']) < $timestamp) {
+
+            print "Die Deadline darf nicht in der Vergangenheit liegen";
+
+        } else {
+
+            echo strtotime($_REQUEST['deadline']);
+            echo "<br>";
+            echo $timestamp;
+
+            $titel = $_REQUEST ['titel'];
+            $inhalt = $_REQUEST ['info'];
+            $dauer = $_REQUEST ['dauer'];
+            $deadline = $_REQUEST ['deadline'];
+            $sqlInsert = "INSERT INTO mib14test.todoeintrag (`Titel`, `Inhalt`, `Dauer`, `Deadline`) VALUES ('$titel','$inhalt','$dauer','$deadline');";
+            $result = mysqli_query($conn, $sqlInsert);
+            header("Location: todo_Ubersicht_Page.php");
+
+        }
+    }
+    ?>
+
+
 </form>
 </body>
 <footer>
