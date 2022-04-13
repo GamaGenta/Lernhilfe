@@ -19,7 +19,6 @@ if(isset($_POST["add"])) {
         addKarteFormAnzeigen();
     }
 } else if($_POST["detail"]) {
-    kartenInhaltAnzeigen($kartenListe[$_POST["detail"]]);
     if($_POST["edit"]) {
         if($_POST["edit"] == true) {
             karteBearbeiten($kartenListe[$_POST["detail"]]->getKID(), $_POST["titel"], $_POST["frage"], $_POST["richtigeAntworten"], $_POST["falscheAntworten"], $_POST["antwortArt"], $_POST["richtigeAntwortenAnzahl"], $_POST["bild"]);
