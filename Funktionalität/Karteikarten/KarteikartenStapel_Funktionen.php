@@ -23,22 +23,27 @@ if(isset($_POST["add"])) {
 } else if(isset($_POST["stapel-detail"])){
     if(isset($_POST["back"])) {
         unset($_POST["stapel-detail"], $_POST["back"]);
-    } else if(isset($_POST["delete"])) {
-        stapelLöschen($stapelListe[$_POST["stapel-detail"]]->getSID());
-        //KarteikartenStapelListe wird wieder angezeigt (= default/else Fall)f:
-        unset($_POST["detail"], $_POST["delete"]);
     } else if(isset($_POST["edit"])){
-        //bearbeiten Formular anzeigen
-        editStapelFormAnzeigen($stapelListe[$_POST["stapel-detail"]]);
         if(isset($_POST["back"])) {
             unset($_POST["edit"], $_POST["back"]);
         } else if($_POST["edit"] == true) {
-            stapelBearbeiten($stapelListe[$_POST["stapel-detail"]]->getSID(), $_POST["titel"], $_POST["modul"]);
-            unset($_POST["titel"], $_POST["modul"], $_POST["edit"]);
+            if(isset($_POST["titel"])) {
+                stapelBearbeiten($stapelListe[$_POST["stapel-detail"]]->getSID(), $_POST["titel"], $_POST["modul"]);
+                unset($_POST["titel"], $_POST["modul"], $_POST["edit"]);
+            } else {
+                //Fehlermeldung
+            }
+        } else if(isset($_POST["delete"])) {
+            stapelLöschen($stapelListe[$_POST["stapel-detail"]]->getSID());
+            //KarteikartenStapelListe wird wieder angezeigt (= default/else Fall)f:
+            unset($_POST["stapel-detail"], $_POST["stapel-detail"], $_POST["delete"]);
         } else {
-            //Details (alle Karten eises Stapels) anzeigen
-            StapelInhaltAnzeigen($stapelListe[$_POST["stapel-detail"]]->getSID(), $stapelListe[$_POST["stapel-detail"]]->getTitel());
+            //bearbeiten Formular anzeigen
+            editStapelFormAnzeigen($stapelListe[$_POST["stapel-detail"]]);
         }
+    } else {
+        //Details (alle Karten eises Stapels) anzeigen
+        StapelInhaltAnzeigen($stapelListe[$_POST["stapel-detail"]]->getSID(), $stapelListe[$_POST["stapel-detail"]]->getTitel());
     }
 } else {
     //KarteikartenStapelListe wird angezeigt
