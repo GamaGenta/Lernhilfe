@@ -18,7 +18,7 @@ include_once 'dbconn.php';
 <form method="POST">
 
     <label for="titel">Titel:</label>
-    <input type="text" id="titel" name="titel">
+    <input type="text" id="titel" name="titel" maxlength="30">
     <hr>
     <br>
     <label for="dauer">Dauer:</label>
@@ -30,7 +30,7 @@ include_once 'dbconn.php';
     <hr>
     <br>
     <label for="info">Info:</label>
-    <input type="text" id="info" name="info">
+    <input type="text" id="info" name="info" maxlength="300">
     <hr>
     <br>
     <input type='submit' id='submit' value='ToDo anlegen' style='float: left'>
