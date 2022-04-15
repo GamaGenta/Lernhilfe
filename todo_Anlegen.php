@@ -34,14 +34,14 @@ include_once 'dbconn.php';
     <hr>
     <br>
     <input type='submit' id='submit' value='ToDo anlegen' style='float: left'>
-    <br><br><br>
+    <br><br>
 
     <?php
     error_reporting(0);
     date_default_timezone_set("Europe/Berlin");
     $timestamp = time();
 
-    if (isset($_REQUEST['submit']) == false) {
+    if (!isset($_REQUEST['submit'])) {
         if ($_REQUEST ['titel'] == "" || $_REQUEST ['dauer'] == "" || $_REQUEST ['deadline'] == "" || $_REQUEST ['info'] == "") {
 
             print "Bitte alle Felder ausfüllen";
