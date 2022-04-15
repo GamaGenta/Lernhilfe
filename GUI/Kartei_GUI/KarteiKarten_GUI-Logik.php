@@ -1,43 +1,63 @@
 <?php
-require_once("KarteikartenStapel.php");
+require_once("../../Logik/Karteikarten/Karteikarten_Logik.php");
+
+$kartenListe = kartenListeErstellen($sID);
 
 
-//Karteikartenstapel Logik Funktionen:
-function kartenstapelListeErstellen() {
-    //Array mit KarteikartenStapel objekten füllen (schrittweise mit einer Schleife)
-    //Kartenstapel werden mit Nutzer Kartenstapel Daten aus der DB grfüllt (mit einer Schleife)
 
-    //DB abfrage: mit über die NutzerID (uid) über Session["user"]->getUID;
-    //DB giebt 2D assoziatives Array (Map) zurück
-    //Beispiel Array, welches aus einer Datenbankabrage herforgeht:
-    $bspStapelDB_Daten = array(
-        array("sID"=> 1,"titel"=>"SW-Spezifikation", "modul"=>"SWEP", "karteikartenAnzahl"=>6),
-        array("sID"=> 2,"titel"=>"Such-Algorithmen", "modul"=>"TIUA", "karteikartenAnzahl"=>7)
-    );
-
-    $stapelListe = array(
-        //new KarteikartenStapel($sID, $title, $modul, $karteikartenAnzahl);
-        //...
-    );
-
-    foreach($bspStapelDB_Daten as $bspDatensatz){
-        $stapelListe[] = new KarteikartenStapel($bspDatensatz["sID"], $bspDatensatz["titel"], $bspDatensatz["modul"], $bspDatensatz["karteikartenAnzahl"]);
+//GUI Funktionen
+if(isset($_POST["add"])) {
+    if(isset($_POST["titel"], $_POST["frage"], $_POST["antwort"])) {
+        karteAnlegen($_POST["titel"], $_POST["frage"], $_POST["antwort"], $_POST["antwortart"], $_POST["richtigeAntworten"], $_POST["bild"]);
+        unset($_POST["add"], $_POST["titel"], $_POST["frage"], $_POST["antwort"], $_POST["antwortart"], $_POST["richtigeAntworten"], $_POST["bild"]);
+    } else if($_POST["back"]){
+        unset($_POST["add"], $_POST["back"]);
+    } else if(!isset($_POST["titel"]) or !isset($_POST["frage"]) or !isset($_POST["antwort"])){
+        addKarteFormAnzeigen();
+        //Fehlermeldung: Formular nicht richtig bzw. vollständig ausgefüllt
+    } else {
+        addKarteFormAnzeigen();
     }
-
-    return $stapelListe;
+} else if($_POST["detail"]) {
+    if($_POST["edit"]) {
+        if($_POST["edit"] == true) {
+            karteBearbeiten($kartenListe[$_POST["detail"]]->getKID(), $_POST["titel"], $_POST["frage"], $_POST["richtigeAntworten"], $_POST["falscheAntworten"], $_POST["antwortArt"], $_POST["richtigeAntwortenAnzahl"], $_POST["bild"]);
+            unset($_POST["titel"], $_POST["frage"], $_POST["richtigeAntworten"], $_POST["falscheAntworten"], $_POST["antwortArt"], $_POST["richtigeAntwortenAnzahl"], $_POST["bild"], $_POST["edit"]);
+        } else if($_POST["back"]) {
+            unset($_POST["edit"], $_POST["back"]);
+        } else {
+            editKarteFormAnzeigen($kartenListe[$_POST["detail"]]);
+        }
+    } else if($_POST["delete"]) {
+        karteLöschen($kartenListe[$_POST["detail"]]->getKID());
+        unset($_POST["detail"], $_POST["delete"]);
+    } else if($_POST["back"]) {
+        unset($_POST["detail"], $_POST["back"]);
+    } else {
+        kartenInhaltAnzeigen($kartenListe[$_POST["detail"]]);
+    }
+}  else {
+    //Liste der Karten des Stapels der Stapel ID (sID)
+    kartenListeAnzeigen($kartenListe, $stapelTitel);
 }
 
-function stapelAnlegen($titel, $modul) {
-    //Datenbankaufruf: Datensatz mit den Variablen füllen (aus Post Formular)
+function kartenListeAnzeigen($kartenList, $staplTitel) {
+    //Liste mit HTML Komponenten anzeigen
+    //(PHP Datei: PHP in HTML eingebettet)
 }
 
-function stapelLöschen($sID) {
-    //Datenbank aufruf: Karten im Stapel erfragen und löschen
-    //Datenbank aufruf: Stapel wird aus der DB gelöscht (über die ID: $sID )
-
+function addKarteFormAnzeigen() {
+    //(POST) Formular mit HTML komponenten anzeigen
+    // <form method="post"> </form>
 }
 
-function stapelBearbeiten($sID, $titel, $modul) {
-    //Datenbankaufruf: Daten des Stapels (titel und modul) aktualisieren über die Stapel ID (  sID: mit $stapel->getSID();  )
+function kartenInhaltAnzeigen($karte) {
+    //Karten Daten werden mit HTML Komponenten angezeigt
+    //(PHP Datei: PHP in HTML eingebettet)
 }
-?>
+
+function editKarteFormAnzeigen($karte) {
+    //Editier Formular anzeigen
+    //Formular ist mit Übergebenen Daten vorausgefüllt
+}
+
