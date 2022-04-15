@@ -46,7 +46,7 @@ include_once 'dbconn.php';
     //Code von https://www.php-resource.de/forum/php-developer-forum/74308-eintraege-mittels-checkbox-loeschen.html
 
     if (isset($_REQUEST['submit'])) {
-        if (empty($_REQUEST['ids']) == true) {
+        if (empty($_REQUEST['ids'])) {
 
             print "Es wurde kein ToDo ausgewählt";
 
