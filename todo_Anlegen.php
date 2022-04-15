@@ -22,11 +22,11 @@ include_once 'dbconn.php';
     <hr>
     <br>
     <label for="dauer">Dauer:</label>
-    <input type="time" id="dauer" name="dauer">
+    <input type="number" id="dauer" name="dauer" step="any">
     <hr>
     <br>
     <label for="deadline">Deadline:</label>
-    <input type="date" id="deadline" name="deadline">
+    <input type="datetime" id="deadline" name="deadline">
     <hr>
     <br>
     <label for="info">Info:</label>
@@ -54,13 +54,12 @@ include_once 'dbconn.php';
 
             echo strtotime($_REQUEST['deadline']);
             echo "<br>";
-            echo $timestamp;
 
             $titel = $_REQUEST ['titel'];
             $inhalt = $_REQUEST ['info'];
             $dauer = $_REQUEST ['dauer'];
             $deadline = $_REQUEST ['deadline'];
-            $sqlInsert = "INSERT INTO mib14test.todoeintrag (`Titel`, `Inhalt`, `Dauer`, `Deadline`) VALUES ('$titel','$inhalt','$dauer','$deadline');";
+            $sqlInsert = "INSERT INTO mib14test.todoeintrag (`Titel`, `Inhalt`, `Dauer`, `Deadline`, `Von`) VALUES ('$titel','$inhalt','$dauer','$deadline','$timestamp');";
             $result = mysqli_query($conn, $sqlInsert);
             header("Location: todo_Ubersicht_Page.php");
 
