@@ -8,9 +8,9 @@ $todoListe = todoListeErstellen();
 if(isset($_POST["delete"])) {
     //todoLöschen($todoListe[$_POST["delete"]]->getTID());
     //ToDo Liste anzeigen:
-    unset($_POST["delete"]);
-    header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
-    return;
+    //unset($_POST["delete"]);
+    //header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+    //return;
 } else if(isset($_POST["add"])) {
     $_SESSION["add"] = true;
 } else if(isset($_POST["detail"])){

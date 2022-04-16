@@ -11,11 +11,16 @@ if (isset($_SESSION["user"])) {
     } else {
         //Die Landingpage (PHP mit HTML framework) laden
         require_once("Landing_GUI.php");
+        if(isset($_SESSION["add"])){
+            unset($_SESSION["add"]);
+        }
+        if(isset($_SESSION["detail"])){
+            unset($_SESSION["detail"]);
+        }
     }
 } else {
     //Login HTML Seite (PHP mit HTML framework) mit PostFoumular laden:
     // Bsp.
     require_once("Login_GUI.php");
 }
-
 ?>
