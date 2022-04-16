@@ -9,25 +9,60 @@ if(isset($_POST["delete"])) {
     todoLöschen($todoListe[$_POST["delete"]]->getTID());
     //ToDo Liste anzeigen:
     unset($_POST["delete"]);
+    //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
+    header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+    return;
 } else if(isset($_POST["add"])) {
-    //Formular zum Anlegen eines ToDo laden
-    addToDoFormAnzeigen();
-    if(isset($_POST["titel"])) {
-        todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
-        //Seiteninhalt (neu) Laden, z.B. unset($_POST["add"])
-        unset($_POST["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
-    } else if(isset($_POST["back"])) {
-        unset($_POST["add"], $_POST["back"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
-    } else if(isset($_POST["deadline"]) or isset($_POST["zeitspanne"]) or isset($_POST["info"])) {
-        //Fehlermeldung anzeigen
-        //Tritt auf falls der User keinen Tietel definiert hat, doch das abgeschickt Formular einen oder mehrere andere Parameter enthält
-        //echo "setze einen Titel!";
-    }
+    $_SESSION["add"] = true;
 } else if(isset($_POST["detail"])){
+    $_SESSION["detail"] = true;
+} 
+
+
+if(isset($_SESSION["add"])) {
+    if(isset($_POST["titel"])) {
+        if(empty($_POST["titel"])) {
+            $_SESSION["add"] = false;
+            //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
+            header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+            return;
+        } else {
+            $_SESSION["add"] = false;
+            todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
+            //Seiteninhalt (neu) Laden, z.B. unset($_POST["add"])
+            unset($_SESSION["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
+            //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
+            header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+            return;
+
+        }
+    } else if(isset($_POST["back"])) {
+        unset($_SESSION["add"], $_POST["add"], $_POST["back"]);
+        //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
+        header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+        return;
+    } else {
+        if($_SESSION["add"]) {
+            //Formular zum Anlegen eines ToDo laden
+            addToDoFormAnzeigen();
+        } else {
+            //Fehlermerldung anzeigen im HTML
+            //Fehlermeldung anzeigen
+            //Tritt auf falls der User keinen Tietel definiert hat, doch das abgeschickt Formular einen oder mehrere andere Parameter enthält
+            //echo "setze einen Titel!";
+            // und das Formular weiterhin anzeigen bzw. Formular mit Fehlermeldung anzeigen:
+            addToDoFormAnzeigen();
+            echo "Fehler: Trage einen Titel ein!";
+        }
+    }
+} else if(isset($_SESSION["detail"])) {
     //Details (alle parameter eines ToDo, außer der tID) anzeigen
     ToDoInhaltAnzeigen($_POST["detail"]);
     if(isset($_POST["back"])) {
-        unset($_POST["detail"], $_POST["back"]);
+        unset($_POST["detail"], $_POST["back"], $_SESSION["detail"]);
+        //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
+        header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+        return;
     } /* // falls das ToDo in der Detailansicht gelöscht werden soll:
         else if(isset($_POST["delete"])) {
         todoLöschen($todoListe[$_POST["delete"]]->getTID());
@@ -39,14 +74,18 @@ if(isset($_POST["delete"])) {
 }
 
 
+
+
 function todoListeAnzeigen($todoListe) {
     //Liste mit HTML Komponenten anzeigen
     //(PHP Datei: PHP in HTML eingebettet)
+    require_once("ToDo_GUI/todo_Uebersicht_Page.php");
 }
 
 function addToDoFormAnzeigen( /* falls Feature ein ToDo bearbeiten implementiert werden soll: $titel = null, $deadline = null, $zeitspanne = null, $info = null */ ) {
     //(POST) Formular mit HTML komponenten anzeigen
     // <form method="post"> </form>
+    require_once("ToDo_GUI/todo_Anlegen.php");
 }
 
 function ToDoInhaltAnzeigen($todo) {
