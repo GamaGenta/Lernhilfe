@@ -9,37 +9,33 @@ if(isset($_POST["delete"])) {
     todoLöschen($todoListe[$_POST["delete"]]->getTID());
     //ToDo Liste anzeigen:
     unset($_POST["delete"]);
-    //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
-    header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+    header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
     return;
 } else if(isset($_POST["add"])) {
     $_SESSION["add"] = true;
 } else if(isset($_POST["detail"])){
     $_SESSION["detail"] = true;
-} 
+}
 
 
 if(isset($_SESSION["add"])) {
     if(isset($_POST["titel"])) {
         if(empty($_POST["titel"])) {
             $_SESSION["add"] = false;
-            //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
-            header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+            header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
             return;
         } else {
             $_SESSION["add"] = false;
             todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
             //Seiteninhalt (neu) Laden, z.B. unset($_POST["add"])
             unset($_SESSION["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
-            //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
-            header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+            header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
             return;
 
         }
     } else if(isset($_POST["back"])) {
         unset($_SESSION["add"], $_POST["add"], $_POST["back"]);
-        //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
-        header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+        header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
         return;
     } else {
         if($_SESSION["add"]) {
@@ -60,8 +56,7 @@ if(isset($_SESSION["add"])) {
     ToDoInhaltAnzeigen($_POST["detail"]);
     if(isset($_POST["back"])) {
         unset($_POST["detail"], $_POST["back"], $_SESSION["detail"]);
-        //Absoluter Link muss in der VM (je nach Umgebung bzw. dem Root nach) gesetzt werden:
-        header('Location:/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/?ToDo');
+        header('Location:./?ToDo');
         return;
     } /* // falls das ToDo in der Detailansicht gelöscht werden soll:
         else if(isset($_POST["delete"])) {
