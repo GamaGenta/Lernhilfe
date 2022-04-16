@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-    <form method="post" action="" style="text-decoration: none">
+    <form method="post" action="">
         <button type="submit" name="back" class="leftArrow"><</button>
     </form>
     <!-- <a href="todo_Uebersicht_Page.php"><i class="leftArrow"><</i></a> -->
@@ -26,12 +26,12 @@
     <input type="text" id="titel" name="titel" maxlength="30">
     <hr>
     <br>
-    <label for="dauer">Dauer:</label>
+    <label for="dauer">Dauer (in h):</label>
     <input type="number" id="dauer" name="dauer" step="any">
     <hr>
     <br>
     <label for="deadline">Deadline:</label>
-    <input type="datetime" id="deadline" name="deadline">
+    <input type="datetime-local" id="deadline" name="deadline">
     <hr>
     <br>
     <label for="info">Info:</label>

@@ -1,6 +1,3 @@
-<?php
-//include_once 'dbconn.php';
-?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -21,52 +18,60 @@
 <form action='' method='POST'>
 
     <?php
-    /**
+    /*
     $sqlSelect = "SELECT idtodo, titel, inhalt FROM todoeintrag;";
     $result = mysqli_query($conn, $sqlSelect);
     $resultCheck = mysqli_num_rows($result);
+    */
+    //var_dump($todoListe);
+    if (sizeof($todoListe) > 0) {
+        $i = 0;
+        foreach ($todoListe as $row) {
+    //hier die idToDo aus der Datenbank holen
+    ?>
+            <hr>
+            <div class='eintragToDo'>
 
-    if ($resultCheck > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-
-            echo "<hr>";
-            echo "<div class='eintragToDo'>";
-            //hier die idToDo aus der Datenbank holen
-            ?>
-            <input type="checkbox" name="ids[]" value="<?php echo $row['idtodo']; ?>" class="checkboxOfToDo">
+            <input type="checkbox" name="tID" value="<?php echo $row->getTID(); //$row['idtodo']; ?>" class="checkboxOfToDo">
+            <label for="checkboxOfToDo5">
             <?php
-            echo '<label for="checkboxOfToDo5">';
-            echo $row['titel'] . "<br>";
-            echo "</label>";
-            echo '<a href="" class="rightArrow">></a>';
-            echo "</div>";
+            echo $row->getTitel() . "<br>";
+            ?>
+            </label>
 
+            <form action="" method="post">
+                <button type="submit" value="<?php echo $i ?>" name="detail"> > </button>
+            </form>
+            <!-- <a href="" class="rightArrow">></a>' -->
+            </div>
+    <?php
+            $i++;
         }
     }
 
-    echo "<input type='submit' name='submit' value='Löschen' style='float: right'>";
+    echo "<input type='submit' name='delete' value='Löschen' style='float: right'>";
     error_reporting(0);
 
     //ausgewählte ToDos aus Datenbank löschen und Seite aktualisieren
     //Code von https://www.php-resource.de/forum/php-developer-forum/74308-eintraege-mittels-checkbox-loeschen.html
 
     if (isset($_REQUEST['submit'])) {
-        if (empty($_REQUEST['ids'])) {
+        if (empty($_REQUEST['tID'])) {
 
             print "Es wurde kein ToDo ausgewählt";
 
         } else {
 
-            foreach ($_REQUEST['ids'] as $val) {
-                $sqlDelete = "DELETE FROM todoeintrag WHERE idtodo IN ('$val');";
-                mysqli_query($conn, $sqlDelete);
-                header("Location: todo_Uebersicht_Page.php");
-                $i = 1;
+            foreach ($_REQUEST['tID'] as $tID) {
+
+                todoLöschen($tID);
+                //header("Location:./?ToDo");
+                //return;
 
             }
         }
     }
-     **/
+
     ?>
 </form>
 </body>
