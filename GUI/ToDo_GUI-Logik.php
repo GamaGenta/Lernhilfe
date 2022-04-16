@@ -6,7 +6,7 @@ $todoListe = todoListeErstellen();
 
 //GUI Funktionen:
 if(isset($_POST["delete"])) {
-    todoLöschen($todoListe[$_POST["delete"]]->getTID());
+    //todoLöschen($todoListe[$_POST["delete"]]->getTID());
     //ToDo Liste anzeigen:
     unset($_POST["delete"]);
     header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
@@ -14,7 +14,7 @@ if(isset($_POST["delete"])) {
 } else if(isset($_POST["add"])) {
     $_SESSION["add"] = true;
 } else if(isset($_POST["detail"])){
-    $_SESSION["detail"] = true;
+    $_SESSION["detail"] = $todoListe[$_POST["detail"]];
 }
 
 
@@ -31,7 +31,6 @@ if(isset($_SESSION["add"])) {
             unset($_SESSION["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
             header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
             return;
-
         }
     } else if(isset($_POST["back"])) {
         unset($_SESSION["add"], $_POST["add"], $_POST["back"]);
@@ -52,18 +51,24 @@ if(isset($_SESSION["add"])) {
         }
     }
 } else if(isset($_SESSION["detail"])) {
-    //Details (alle parameter eines ToDo, außer der tID) anzeigen
-    ToDoInhaltAnzeigen($_POST["detail"]);
     if(isset($_POST["back"])) {
         unset($_POST["detail"], $_POST["back"], $_SESSION["detail"]);
         header('Location:./?ToDo');
         return;
-    } /* // falls das ToDo in der Detailansicht gelöscht werden soll:
-        else if(isset($_POST["delete"])) {
-        todoLöschen($todoListe[$_POST["delete"]]->getTID());
-        //ToDo Liste anzeigen:
-        unset($_POST["delete"], $_POST["detail"]);
-        }*/
+    } else {
+        //Details (alle parameter eines ToDo, außer der tID) anzeigen
+        ToDoInhaltAnzeigen($_SESSION["detail"]);
+
+        //unset($_POST["detail"], $_POST["back"], $_SESSION["detail"]);
+        //header('Location:./?ToDo');
+        //return;
+    }
+    /* falls das ToDo in der Detailansicht gelöscht werden soll:
+    else if(isset($_POST["delete"])) {
+    todoLöschen($todoListe[$_POST["delete"]]->getTID());
+    ToDo Liste anzeigen:
+    unset($_POST["delete"], $_POST["detail"]);
+    }*/
 } else {
     todoListeAnzeigen($todoListe);
 }
@@ -84,7 +89,7 @@ function addToDoFormAnzeigen( /* falls Feature ein ToDo bearbeiten implementiert
 }
 
 function ToDoInhaltAnzeigen($todo) {
-
     //ToDo Parameter (titel, deadline, zeitspanne, info) anzeigen in Form von HTML Komponenten
     //muss Link zur ToDo loste beinhalten (<a href="?ToDo"> </a>)
+    include_once("ToDo_GUI/todo_Detailsicht.php");
 }

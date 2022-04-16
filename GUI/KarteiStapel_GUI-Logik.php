@@ -6,6 +6,7 @@ $stapelListe = kartenstapelListeErstellen();
 
 //GUI Funktionen
 if(isset($_POST["add"])) {
+    $_SESSION["add"] = true;
     //Formular zum Anlegen eines Stapels laden
     addStapelFormAnzeigen();
     if(isset($_POST["titel"])) {
@@ -47,6 +48,26 @@ if(isset($_POST["add"])) {
 } else {
     //KarteikartenStapelListe wird angezeigt
     stapelListeAnzeigen($stapelListe);
+}
+
+if(isset($_SESSION["add"])) {
+    //Formular zum Anlegen eines Stapels laden
+    addStapelFormAnzeigen();
+    if(isset($_POST["titel"])) {
+        if(empty($_POST["titel"])) {
+            stapelAnlegen($_POST["titel"], $_POST["modul"]);
+            echo "Fehler: Gib einen Titel ein";
+        } else {
+            stapelAnlegen($_POST["titel"], $_POST["modul"]);
+            unset($_SESSION["add"]);
+            header('Location:./?Kartei'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+            return;
+        }
+    } else if() {
+
+    } else if(isset($_POST["back"])) {
+        unset($_POST["add"], $_POST["back"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["modul"]*/);
+    }
 }
 
 function stapelListeAnzeigen($stapelListe) {
