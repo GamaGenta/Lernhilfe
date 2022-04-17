@@ -14,7 +14,7 @@ CREATE TABLE THMMitglied (
 CREATE TABLE ToDo (
     idToDo INTEGER,
     idMitglied INTEGER,
-    Titel VARCHAR (30),
+    Titel VARCHAR (30) NOT NULL,
     DEADLINE DATETIME,
     Von DATE,
     Zeitspanne FLOAT,
@@ -98,6 +98,7 @@ INSERT INTO ToDo (idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VA
 INSERT INTO ToDo (idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VALUES (1,5,"SWEP-Projekt","2022-04-17 10:38:50","2022-01-01", 80, "Implementierung");
 INSERT INTO ToDo (idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VALUES (1,6,"SWEP-Projekt","2022-04-17 10:38:50","2022-01-01", 80, "Testen");
 INSERT INTO ToDo (idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VALUES (1,7,"SWEP-Projekt Bewerten","2022-05-01 10:38:50","2022-04-17", 3.5, "100% für das Projekt der Gruppe Lernhilfe geben");
+INSERT INTO ToDo (idToDo, idMitglied, Titel) VALUES (2,7,"SWEP-Projekt");
 
 INSERT INTO Arbeit (idArbeit, idMitglied, Titel, Startzeitpunkt, Endzeitpunkt) VALUES (1,1,"SWEP-Projekt","2022-01-01","2022-01-02");
 INSERT INTO Arbeit (idArbeit, idMitglied, Titel, Startzeitpunkt, Endzeitpunkt) VALUES (2,1,"SWEP-Projekt","2022-03-15","2022-03-16");
@@ -144,49 +145,47 @@ INSERT INTO Antwort (idMitglied, Antwortart, idKarteikarte, idKarteikartenStapel
 DELIMITER //
 CREATE PROCEDURE toDoAuslesen(IN uid VARCHAR(255))
 BEGIN
-
-SELECT ToDo.idToDo, ToDo.Titel, ToDo.DEADLINE, ToDo.Zeitspanne, ToDo.INFO FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid;
-
+	SELECT ToDo.idToDo, ToDo.Titel, ToDo.DEADLINE, ToDo.Zeitspanne, ToDo.INFO FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid;
 END //
 DELIMITER;
 
-Call toDoAuslesen("Grebing");
-
-SELECT * FROM ToDO;
 
 
 DELIMITER //
-CREATE PROCEDURE MAXToDo (IN uid VARCHAR(255))
+CREATE PROCEDURE CountToDo (IN uid VARCHAR(255))
 BEGIN
-
-SELECT MAX(ToDo.idToDo) FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid;
-
+	SELECT COUNT(ToDo.idToDo) FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid;
 END //
 DELIMITER;
 
-Call MAXToDo("Grebing");
-
-DROP Procedure InsertIntoToDo;
 
 DELIMITER |
 CREATE PROCEDURE InsertIntoToDo (IN uid VARCHAR(255), IN Titel VARCHAR (255), IN DEADLINE DATETIME, IN Zeitspanne FLOAT, IN Info VARCHAR(255))
 BEGIN
+	DECLARE maxToDo INTEGER;
+	DECLARE userid INTEGER;
+	SELECT distinct Max(ToDo.idToDo) FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid INTO maxToDo;
+	SELECT idMitglied FROM THMMitglied WHERE THMMitglied.Username = uid INTO userid;
 
-DECLARE maxToDo INTEGER;
-DECLARE userid INTEGER;
-SELECT distinct Max(ToDo.idToDo) FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid INTO maxToDo;
-SELECT DISTINCT Todo.idMitglied FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid INTO userid;
+	SET maxToDo = maxToDo + 1;
 
-SET maxToDo = maxToDo + 1;
-
-INSERT INTO ToDo(idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VALUES (maxToDo, userid, Titel, DEADLINE, NOW(), Zeitspanne, Info);
-
+	SELECT IFNULL(maxToDo, 1) INTO maxToDo;
+	
+	SELECT idMitglied FROM THMMitglied WHERE THMMitglied.Username = uid;
+	SELECT maxToDo;
+	INSERT INTO ToDo(idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VALUES (maxToDo, userid, Titel, DEADLINE, NOW(), Zeitspanne, Info);
 END |
 DELIMITER ;
 
 
-Call InsertIntoToDo("Grebing", "TEST", "2022-04-17 10:38:50", 1.5, "versagen");
-
+DELIMITER |
+CREATE PROCEDURE DeleteToDo (IN uid VARCHAR(255), IN todoid INTEGER)
+BEGIN
+	DECLARE userid INTEGER;
+		SELECT DISTINCT Todo.idMitglied FROM THMMitglied JOIN Todo ON THMMitglied.idMitglied = ToDo.idMitglied WHERE THMMitglied.Username = uid INTO userid;
+		DELETE FROM ToDo WHERE idMitglied = userid AND idtodo = todoid; 
+END |
+DELIMITER ;
 
 
 
