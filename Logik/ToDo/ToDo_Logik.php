@@ -58,8 +58,30 @@ function todoListeErstellen() {
         //print_r($row);
     }
 
+
+
     return $todoListe;
+    //return quicksort($todoListe);
 }
+
+function quicksort($array) {
+    if (count($array) < 2) {
+        return $array;
+    }
+    $left = $right = array();
+    reset($array);
+    $pivot_key = key($array);
+    $pivot = array_shift($array);
+    foreach ($array as $k => $v) {
+        if ($v->getDeadline() <= $pivot->getDeadline()) {
+            $left[$k] = $v;
+        } else {
+            $right[$k] = $v;
+        }
+    }
+    return array_merge(quicksort($left), array($pivot_key => $pivot), quicksort($right));
+}
+
 
 function todoAnlegen($title, $deadline = null, $zeitspanne = null, $info = null) {
     //Datenbankaufruf mit den Variablen füllen (aus Post Formular)
@@ -99,11 +121,10 @@ function todoAnlegen($title, $deadline = null, $zeitspanne = null, $info = null)
 
         $conn = mysqli_connect($DB_HOST, $DB_BENUTZER, $DB_PASSWORT, $DB_NAME);
         $user = $_SESSION["user"]->getUid();
-        $sqlInsert = "Call InsertIntoToDo('$user', '$title', '$deadline', $zeitspanne, '$info');";
-        //$sqlInsert = "INSERT INTO ToDo(idToDo, idMitglied, Titel, DEADLINE, Von, Zeitspanne, INFO) VALUES (Call MAXToDo('$user'), 4, '$title', '$deadline', NOW(), $zeitspanne, '$info');";
+        $sqlInsert = "Call InsertIntoToDo('$user', '$title', '$deadline', '$zeitspanne', '$info');";
         $result = mysqli_query($conn, $sqlInsert);
-        $_SESSION["TEST"] = $conn;
 
+        $_SESSION["TEST"] = $result;
     } else {
         $_SESSION["toMuchToDo"] = true;
     }
@@ -124,7 +145,8 @@ function todoLöschen($tIDs){
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ];
 
-    //$result = null;
+    $_SESSION["TEST"] = $tIDs;
+
     try {
         // Verbindung zur Datenbank aufbauen
         //$db = new PDO("mysql:host=" . $DB_HOST . ";dbname=" . $DB_NAME, $DB_BENUTZER, $DB_PASSWORT, $OPTION);
@@ -138,7 +160,7 @@ function todoLöschen($tIDs){
             //$sqlDelete = "DELETE FROM todoeintrag WHERE idtodo IN ('$val');";
             //mysqli_query($conn, $sqlDelete);
 
-            $sqlSelect = "DELETE * FROM todo WHERE idToDo = $tID and idMitglied = '';";
+            $sqlSelect = "Call DeleteToDo('$user', '$tID');";
             $result = mysqli_query($conn, $sqlSelect);
             //$resultCheck = mysqli_num_rows($result);
         }
