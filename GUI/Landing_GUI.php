@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lernhilfe Landing Page</title>
-    <link rel="stylesheet" hre="style_Landing_GUI.css">
+    <link rel="stylesheet" href="style_Landing_GUI.css">
 </head>
 <body id="Hintergrund">
 <nav>

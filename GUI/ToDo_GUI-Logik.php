@@ -2,7 +2,7 @@
 require_once("../Logik/ToDo/ToDo_Logik.php");
 
 $todoListe = todoListeErstellen();
-//error_reporting(0);
+error_reporting(0);
 
 //GUI Funktionen:
 if(isset($_POST["delete"])) {
@@ -33,15 +33,15 @@ if(isset($_SESSION["add"])) {
             return;
         } else {
             todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
-            //Seiteninhalt (neu) Laden, z.B. unset($_POST["add"])
 
-                unset($_SESSION["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
-                header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+            //Seiteninhalt (neu) Laden, z.B. unset($_POST["add"])
+                unset($_SESSION["add"]);
+                header('Location:./?ToDo');
                 return;
         }
     } else if(isset($_POST["back"])) {
         unset($_SESSION["add"], $_POST["add"], $_POST["back"]);
-        header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+        header('Location:./?ToDo');
         return;
     } else {
         if($_SESSION["add"]) {
@@ -69,10 +69,6 @@ if(isset($_SESSION["add"])) {
             print "Es wurde kein ToDo ausgewählt";
         }
     }
-
-    if(isset($_SESSION["TEST"])) {
-        var_dump($_SESSION["TEST"]);
-    }
 }
 
 
@@ -80,18 +76,15 @@ if(isset($_SESSION["add"])) {
 
 function todoListeAnzeigen($todoListe) {
     //Liste mit HTML Komponenten anzeigen
-    //(PHP Datei: PHP in HTML eingebettet)
     require_once("ToDo_GUI/todo_Uebersicht_Page.php");
 }
 
 function addToDoFormAnzeigen( /* falls Feature ein ToDo bearbeiten implementiert werden soll: $titel = null, $deadline = null, $zeitspanne = null, $info = null */ ) {
     //(POST) Formular mit HTML komponenten anzeigen
-    // <form method="post"> </form>
     require_once("ToDo_GUI/todo_Anlegen.php");
 }
 
 function ToDoInhaltAnzeigen($todo) {
     //ToDo Parameter (titel, deadline, zeitspanne, info) anzeigen in Form von HTML Komponenten
-    //muss Link zur ToDo loste beinhalten (<a href="?ToDo"> </a>)
     include_once("ToDo_GUI/todo_Detailsicht.php");
 }
