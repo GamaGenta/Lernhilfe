@@ -5,6 +5,14 @@
     color: #FFFFFF;
 }
 
+button {
+    border: none;
+}
+
+input[type="submit"] {
+    border: none;
+}
+
 body {
     margin-top: 0px;
     margin-left: 0px;
@@ -21,6 +29,10 @@ header {
 
 label {
     pointer-events:none;
+}
+
+.eintragToDo button {
+    font-size: 2rem;
 }
 
 

@@ -5,6 +5,10 @@
     color: #FFFFFF;
 }
 
+header button {
+    border: none;
+}
+
 body {
     margin-top: 0px;
     margin-left: 0px;

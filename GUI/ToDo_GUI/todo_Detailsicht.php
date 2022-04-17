@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo Anlegen - Lernhilfe</title>
     <!-- Absoluten Link für das Stylesheet je nach Umgebung (VM) setzen -->
-    <link rel="stylesheet" href="/GUI-Test/Lernhilfe-Logik-und-GUI-getrennt/GUI/ToDo_GUI/style_todo_Detailansicht.css">
+    <link rel="stylesheet" href="style_todo_Detailansicht.css">
 </head>
 <header>
     <form method="post" action="">

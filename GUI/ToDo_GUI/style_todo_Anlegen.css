@@ -5,6 +5,9 @@
     color: #FFFFFF;
 }
 
+header button {
+    border: none;
+}
 body {
     width: 100%;
     margin: 0;
