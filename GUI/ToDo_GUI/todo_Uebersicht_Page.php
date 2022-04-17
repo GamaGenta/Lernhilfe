@@ -18,12 +18,6 @@
 <form action='' method='POST'>
 
     <?php
-    /*
-    $sqlSelect = "SELECT idtodo, titel, inhalt FROM todoeintrag;";
-    $result = mysqli_query($conn, $sqlSelect);
-    $resultCheck = mysqli_num_rows($result);
-    */
-    //var_dump($todoListe);
     if (sizeof($todoListe) > 0) {
         $i = 0;
         foreach ($todoListe as $row) {
@@ -39,10 +33,9 @@
             ?>
             </label>
 
-
                 <button type="submit" value="<?php echo $i ?>" name="detail"> > </button>
 
-            <!-- <a href="" class="rightArrow">></a>' -->
+
             </div>
     <?php
             $i++;
@@ -56,7 +49,7 @@
     //Code von https://www.php-resource.de/forum/php-developer-forum/74308-eintraege-mittels-checkbox-loeschen.html
 
 
-
+/*
     if(isset($_POST["delete"])) {
         if (empty($_POST['tID'])) {
 
@@ -79,7 +72,7 @@
         //ToDo Liste anzeigen:
         unset($_POST["delete"]);
     }
-
+*/
 
 
     ?>

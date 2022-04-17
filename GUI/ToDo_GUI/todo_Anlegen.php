@@ -1,6 +1,3 @@
-<?php
-//include_once 'dbconn.php';
-?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -40,39 +37,6 @@
     <br>
     <!-- <input type='submit' id='submit' value='ToDo anlegen' style='float: left'> -->
     <br><br>
-
-    <?php
-    /*
-    error_reporting(0);
-    date_default_timezone_set("Europe/Berlin");
-    $timestamp = time();
-
-    if (!isset($_REQUEST['submit'])) {
-        if ($_REQUEST ['titel'] == "" || $_REQUEST ['dauer'] == "" || $_REQUEST ['deadline'] == "" || $_REQUEST ['info'] == "") {
-
-            print "Bitte alle Felder ausfüllen";
-
-        } elseif (strtotime($_REQUEST['deadline']) < $timestamp) {
-
-            print "Die Deadline darf nicht in der Vergangenheit liegen";
-
-        } else {
-
-            echo strtotime($_REQUEST['deadline']);
-            echo "<br>";
-
-            $titel = $_REQUEST ['titel'];
-            $inhalt = $_REQUEST ['info'];
-            $dauer = $_REQUEST ['dauer'];
-            $deadline = $_REQUEST ['deadline'];
-            $sqlInsert = "INSERT INTO mib14test.todoeintrag (`Titel`, `Inhalt`, `Dauer`, `Deadline`, `Von`) VALUES ('$titel','$inhalt','$dauer','$deadline','$timestamp');";
-            $result = mysqli_query($conn, $sqlInsert);
-            header("Location: todo_Uebersicht_Page.php");
-
-        }
-    }
-    */
-    ?>
 
 </div>
 </form>

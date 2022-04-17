@@ -1,6 +1,3 @@
-<?php
-//include_once '../other/dbconn.php';
-?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -26,15 +23,14 @@
     <hr>
     <br>
     <label for="dauer">Dauer:</label>
-    <p> <?php echo $todo->getZeitspanne();
-        if(!empty($todo->getZeitspanne())) echo "h"; ?> </p>
+    <p> <?php if($todo->getZeitspanne() != 0) echo $todo->getZeitspanne()." h";?> </p>
     <?php
 
     ?>
     <hr>
     <br>
     <label for="deadline">Deadline:</label>
-    <p> <?php echo $todo->getDeadline(); ?> </p>
+    <p> <?php if($todo->getDeadline() != "0000-00-00 00:00:00") echo $todo->getDeadline();?> </p>
     <?php
 
     ?>
