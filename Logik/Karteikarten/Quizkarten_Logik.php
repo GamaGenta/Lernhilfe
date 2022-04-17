@@ -50,7 +50,7 @@ function ergebnissAnzeigen($karte, $antwort) {
 
 
 
-//Quizkarten Funktionalität Funktionen:
+//Quizkarten Logik Funktionen:
 function kartenListeErstellen($sID) {
     //Array mit Karteikarte (Studentenkarte) objekten füllen (schrittweise mit einer Schleife)
     //Karten werden mit Nutzer Karten Daten aus der DB grfüllt (mit einer Schleife)

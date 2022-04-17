@@ -1,12 +1,12 @@
 <?php
-require_once("KarteikartenStapel.php");
+require_once("../Logik/Karteikarten/KarteikartenStapel_Logik.php");
 
 $stapelListe = kartenstapelListeErstellen();
 
 
-
 //GUI Funktionen
 if(isset($_POST["add"])) {
+    $_SESSION["add"] = true;
     //Formular zum Anlegen eines Stapels laden
     addStapelFormAnzeigen();
     if(isset($_POST["titel"])) {
@@ -50,6 +50,26 @@ if(isset($_POST["add"])) {
     stapelListeAnzeigen($stapelListe);
 }
 
+if(isset($_SESSION["add"])) {
+    //Formular zum Anlegen eines Stapels laden
+    addStapelFormAnzeigen();
+    if(isset($_POST["titel"])) {
+        if(empty($_POST["titel"])) {
+            stapelAnlegen($_POST["titel"], $_POST["modul"]);
+            echo "Fehler: Gib einen Titel ein";
+        } else {
+            stapelAnlegen($_POST["titel"], $_POST["modul"]);
+            unset($_SESSION["add"]);
+            header('Location:./?Kartei'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+            return;
+        }
+    } else if() {
+
+    } else if(isset($_POST["back"])) {
+        unset($_POST["add"], $_POST["back"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["modul"]*/);
+    }
+}
+
 function stapelListeAnzeigen($stapelListe) {
     //Liste mit HTML Komponenten anzeigen
     //(PHP Datei: PHP in HTML eingebettet)
@@ -65,51 +85,10 @@ function addStapelFormAnzeigen() {
 function StapelInhaltAnzeigen($sID, $stapelTitel) {
     // Aufruf der Karteikarten (GUI) Funktionen (Karteikarten GUI ruft funktionale Kateikarten Funktionen auf)
     // (abrufen und Darstellung der Karteikarten das Stapels)
-    require_once("Karteikarten_Funktionen.php" /* GUI der Karteikarten anzeigen */);
+    require_once("Kartei_GUI/KarteiKarten_GUI-Logik.php" /* GUI der Karteikarten anzeigen */);
 }
 
 function editStapelFormAnzeigen($stapel) {
     //Editier Formular anzeigen
     //Formular ist mit Übergebenen Daten vorausgefüllt
 }
-
-
-//Karteikartenstapel Funktionalität Funktionen:
-function kartenstapelListeErstellen() {
-    //Array mit KarteikartenStapel objekten füllen (schrittweise mit einer Schleife)
-    //Kartenstapel werden mit Nutzer Kartenstapel Daten aus der DB grfüllt (mit einer Schleife)
-
-    //DB abfrage: mit über die NutzerID (uid) über Session["user"]->getUID;
-    //DB giebt 2D assoziatives Array (Map) zurück
-    //Beispiel Array, welches aus einer Datenbankabrage herforgeht:
-    $bspStapelDB_Daten = array(
-        array("sID"=> 1,"titel"=>"SW-Spezifikation", "modul"=>"SWEP", "karteikartenAnzahl"=>6),
-        array("sID"=> 2,"titel"=>"Such-Algorithmen", "modul"=>"TIUA", "karteikartenAnzahl"=>7)
-    );
-
-    $stapelListe = array(
-        //new KarteikartenStapel($sID, $title, $modul, $karteikartenAnzahl);
-        //...
-    );
-
-    foreach($bspStapelDB_Daten as $bspDatensatz){
-        $stapelListe[] = new KarteikartenStapel($bspDatensatz["sID"], $bspDatensatz["titel"], $bspDatensatz["modul"], $bspDatensatz["karteikartenAnzahl"]);
-    }
-
-    return $stapelListe;
-}
-
-function stapelAnlegen($titel, $modul) {
-    //Datenbankaufruf: Datensatz mit den Variablen füllen (aus Post Formular)
-}
-
-function stapelLöschen($sID) {
-    //Datenbank aufruf: Karten im Stapel erfragen und löschen
-    //Datenbank aufruf: Stapel wird aus der DB gelöscht (über die ID: $sID )
-
-}
-
-function stapelBearbeiten($sID, $titel, $modul) {
-    //Datenbankaufruf: Daten des Stapels (titel und modul) aktualisieren über die Stapel ID (  sID: mit $stapel->getSID();  )
-}
-?>
