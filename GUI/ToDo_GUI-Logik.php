@@ -15,7 +15,14 @@ if(isset($_POST["delete"])) {
     $_SESSION["add"] = true;
 } else if(isset($_POST["detail"])){
     $_SESSION["detail"] = $todoListe[$_POST["detail"]];
+} /* else if(isset($_POST["delete"])) {
+    if (empty($_POST['tID'])) {
+        $_POST["delete"] = false;
+    } else {
+        $_POST["delete"] = true;
+    }
 }
+ */
 
 
 if(isset($_SESSION["add"])) {
@@ -25,12 +32,12 @@ if(isset($_SESSION["add"])) {
             header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
             return;
         } else {
-            $_SESSION["add"] = false;
             todoAnlegen($_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]);
             //Seiteninhalt (neu) Laden, z.B. unset($_POST["add"])
-            unset($_SESSION["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
-            header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
-            return;
+
+                unset($_SESSION["add"]/*wird eventuell nicht benötigt, $_POST["titel"], $_POST["deadline"], $_POST["zeitspanne"], $_POST["info"]*/);
+                header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link */
+                return;
         }
     } else if(isset($_POST["back"])) {
         unset($_SESSION["add"], $_POST["add"], $_POST["back"]);
@@ -38,8 +45,10 @@ if(isset($_SESSION["add"])) {
         return;
     } else {
         if($_SESSION["add"]) {
-            //Formular zum Anlegen eines ToDo laden
             addToDoFormAnzeigen();
+            if($_SESSION["toMuchToDo"]) {
+                echo "Fehler: du hast zu viele ToDo's";
+            }
         } else {
             //Fehlermerldung anzeigen im HTML
             //Fehlermeldung anzeigen
@@ -69,8 +78,33 @@ if(isset($_SESSION["add"])) {
     ToDo Liste anzeigen:
     unset($_POST["delete"], $_POST["detail"]);
     }*/
-} else {
+} /*else if(isset($_POST["delete"])) {
+    if ($_POST["delete"]) {
+
+        //foreach ($_POST['tID'] as $tID) {
+
+        todoLöschen($_POST['tID']);
+        //}
+
+        //header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link
+        unset($_POST["delete"]);
+        header('Location:./?ToDo');
+        return;
+
+    } else {
+
+        todoListeAnzeigen($todoListe);
+        print "Es wurde kein ToDo ausgewählt";
+
+    }
+    //todoLöschen($todoListe[$_POST["delete"]]->getTID());
+    //ToDo Liste anzeigen:
+    unset($_POST["delete"]);
+} */ else {
     todoListeAnzeigen($todoListe);
+    if(isset($_SESSION["TEST"])) {
+        var_dump($_SESSION["TEST"]);
+    }
 }
 
 
