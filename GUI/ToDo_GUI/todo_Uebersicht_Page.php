@@ -32,16 +32,16 @@
             <hr>
             <div class='eintragToDo'>
 
-            <input type="checkbox" name="tID" value="<?php echo $row->getTID(); //$row['idtodo']; ?>" class="checkboxOfToDo">
+            <input type="checkbox" name="tID[]" value="<?php echo $row->getTID(); //$row['idtodo']; ?>" class="checkboxOfToDo">
             <label for="checkboxOfToDo5">
             <?php
             echo $row->getTitel() . "<br>";
             ?>
             </label>
 
-            <form action="" method="post">
+
                 <button type="submit" value="<?php echo $i ?>" name="detail"> > </button>
-            </form>
+
             <!-- <a href="" class="rightArrow">></a>' -->
             </div>
     <?php
@@ -50,27 +50,37 @@
     }
 
     echo "<input type='submit' name='delete' value='Löschen' style='float: right'>";
-    error_reporting(0);
+    //error_reporting(0);
 
     //ausgewählte ToDos aus Datenbank löschen und Seite aktualisieren
     //Code von https://www.php-resource.de/forum/php-developer-forum/74308-eintraege-mittels-checkbox-loeschen.html
 
-    if (isset($_REQUEST['submit'])) {
-        if (empty($_REQUEST['tID'])) {
+
+
+    if(isset($_POST["delete"])) {
+        if (empty($_POST['tID'])) {
 
             print "Es wurde kein ToDo ausgewählt";
 
         } else {
 
-            foreach ($_REQUEST['tID'] as $tID) {
 
-                todoLöschen($tID);
-                //header("Location:./?ToDo");
-                //return;
+            //foreach ($_POST['tID'] as $tID) {
 
-            }
+                todoLöschen($_POST['tID']);
+            //}
+
+            //header('Location:./?ToDo'); /*aktuelle seite wird geladen mit "ToDo" als GET Parameter im Link
+            unset($_POST["delete"]);
+            header('Location:./?ToDo');
+            return;
         }
+        //todoLöschen($todoListe[$_POST["delete"]]->getTID());
+        //ToDo Liste anzeigen:
+        unset($_POST["delete"]);
     }
+
+
 
     ?>
 </form>

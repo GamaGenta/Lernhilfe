@@ -34,7 +34,7 @@
     <hr>
     <br>
     <label for="deadline">Deadline:</label>
-    <p> <?php echo date('m/d/Y H:i:s', $todo->getDeadline()); ?> </p>
+    <p> <?php echo $todo->getDeadline(); ?> </p>
     <?php
 
     ?>

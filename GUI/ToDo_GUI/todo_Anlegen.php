@@ -23,11 +23,11 @@
 <hr  id="headline">
 <div id="addForm">
     <label for="titel">Titel:</label>
-    <input type="text" id="titel" name="titel" maxlength="30">
+    <input type="text" id="titel" name="titel" maxlength="30" required>
     <hr>
     <br>
     <label for="dauer">Dauer (in h):</label>
-    <input type="number" id="dauer" name="dauer" step="any">
+    <input type="number" id="dauer" name="zeitspanne" step="any">
     <hr>
     <br>
     <label for="deadline">Deadline:</label>
