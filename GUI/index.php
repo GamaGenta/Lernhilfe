@@ -21,6 +21,10 @@ if (isset($_SESSION["user"])) {
 } else {
     //Login HTML Seite (PHP mit HTML framework) mit PostFoumular laden:
     // Bsp.
-    require_once("Login_GUI.php");
+    if(isset($_GET_["registr"])){
+        require_once("");
+    } else {
+        require_once("Login_GUI.php");
+    }
 }
 ?>
