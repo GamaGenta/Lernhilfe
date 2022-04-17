@@ -42,6 +42,7 @@ function todoListeErstellen() {
 
 
     return $todoListe;
+    //möglichkeit zum Sortieren, nach nächster Deadline:
     //return quicksort($todoListe);
 }
 
